@@ -4,7 +4,7 @@ import Dropdown from "./components/dropdown/dropdown";
 import CountryInfo from "./components/countryinfo/countryinfo";
 import countries from "./json/countries.json";
 import { useState } from "react";
-import Navbar from "./components/Navbar/Navbar";
+
 
 function App() {
   const URL = "https://api.zippopotam.us";
@@ -12,7 +12,7 @@ function App() {
   const onChange = (e) => {
     const value = e.target.value;
 
-    if (value == "") {
+    if (value === "") {
       setData(null);
     } else {
       const link = `${URL}/${value}`;
@@ -33,103 +33,47 @@ function App() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setLoading(false);
       });
   };
 
   return (
     <>
-      <div className="bg-light" style={{ height: "100vh" }}>
-        {/* <Navbar /> */}
-        <div className="container pt-5 bg-light d-flex flex-column justify-content-start align-items-center">
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <h1
-              className="text-dark anton header-text"
-              style={{ fontSize: "6em" }}
-            >
-              Hello World
+      <div className="bg-light vh-100 d-flex flex-column">
+        <div className="container py-5 d-flex flex-column align-items-center">
+          <div className="text-center mb-5">
+            <h1 className="text-primary fw-bold anton display-3 mb-3">
+              Explore Country
             </h1>
+            <p className="text-muted lead">
+              Select a country to know detailed information.
+            </p>
+          </div>
+          <div className="w-50">
             <Dropdown
               id="countries"
-              label="country"
+              label="Country"
               options={countries}
-              containerClass="d-flex p-3 poppins"
+              containerClass="d-flex flex-column align-items-center"
               onSelectChange={onChange}
             />
           </div>
-
           {loading ? (
-            <div className="w-50 mt-3 d-flex flex-column gap-2">
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "6vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
-              <p class="placeholder-glow w-100 m-0">
-                <span
-                  class="placeholder col-12"
-                  style={{ height: "3vh" }}
-                ></span>
-              </p>
+            <div className="w-75 mt-5">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="placeholder-glow mb-3">
+                  <span
+                    className="placeholder bg-secondary rounded-2"
+                    style={{ height: "4vh", display: "block" }}
+                  ></span>
+                </div>
+              ))}
             </div>
           ) : (
-            <CountryInfo data={data} />
+            <div className="w-75 mt-4">
+              <CountryInfo data={data} />
+            </div>
           )}
         </div>
       </div>
